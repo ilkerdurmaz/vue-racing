@@ -1,10 +1,11 @@
 <script setup>
-console.log("deneme");
-console.log;
+import PingText from "./assets/components/PingText.vue";
 </script>
 
 <template>
-  <h1 class="text-3xl font-bold underline">Hello world!</h1>
+  <div>
+    <PingText :size="100"></PingText>
+  </div>
 </template>
 
 <style scoped></style>

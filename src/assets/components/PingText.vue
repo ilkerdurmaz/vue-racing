@@ -5,8 +5,8 @@ const props = defineProps({
     default: "Ping Text",
   },
   size: {
-    type: String,
-    default: "100",
+    type: Number,
+    default: 100,
   },
   color: {
     type: String,
