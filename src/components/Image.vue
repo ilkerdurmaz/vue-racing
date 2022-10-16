@@ -1,5 +1,5 @@
 <script setup>
-const props = {
+const props = defineProps({
   imgSrc: {
     type: String,
     default: "https://dummyimage.com/240/000000/fff",
@@ -8,10 +8,10 @@ const props = {
     type: Number,
     default: 240,
   },
-};
+});
 </script>
 <template>
-  <div></div>
+  <img :src="props.imgSrc" :width="props.size" />
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
