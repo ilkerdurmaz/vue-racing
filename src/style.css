@@ -2,14 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 body {
-  margin: 0;
+  margin: 0 auto;
   display: flex;
   min-width: 320px;
+  max-width: 1280px;
   min-height: 100vh;
 }
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 100%;
 }
