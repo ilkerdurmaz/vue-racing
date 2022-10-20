@@ -6,12 +6,14 @@ const props = defineProps({
   },
   size: {
     type: Number,
-    default: 240,
+    default: 64,
+  },
+  alt: {
+    type: String,
+    default: "image",
   },
 });
 </script>
 <template>
-  <img :src="props.imgSrc" :width="props.size" />
+  <img :src="props.imgSrc" :alt="props.alt" :width="props.size" />
 </template>
-
-<style scoped></style>
