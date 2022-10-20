@@ -1,13 +1,9 @@
 <script setup>
-import { computed } from "@vue/reactivity";
-import { onUpdated, ref, watch } from "vue";
+import { ref, watch } from "vue";
 import Image from "../Image.vue";
 import Line from "./Line.vue";
+
 const props = defineProps({
-  imgSize: {
-    type: Number,
-    default: 64,
-  },
   background: {
     type: String,
     default: "gray",
@@ -20,17 +16,9 @@ const props = defineProps({
     type: String,
     default: "https://dummyimage.com/240/000000/fff",
   },
-  lineWidth: {
-    type: Number,
-    default: 20,
-  },
   lineBg: {
     type: String,
     default: "red",
-  },
-  lineBgSize: {
-    type: Number,
-    default: 100,
   },
   started: {
     type: Boolean,
@@ -38,7 +26,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["finished", "position"]);
+const emit = defineEmits(["position"]);
 const speed = ref(30);
 const position = ref(0);
 let interval;
@@ -76,26 +64,16 @@ function randomAcceleration() {
 
 <template>
   <div
-    class="flex"
+    class="flex pr-16 sm:pr-20 lg:pr-32"
     :style="{
-      paddingRight: props.imgSize + 'px',
       background: props.background,
       backgroundSize: props.bgSize + 'px',
     }"
   >
     <span class="relative" :style="{ left: position + '%' }">
-      <Image :size="props.imgSize" :img-src="props.imgSrc"></Image>
+      <Image class="w-16 sm:w-20 lg:w-32" :img-src="props.imgSrc"></Image>
     </span>
-    <Line
-      :background="props.lineBg"
-      :background-size="props.lineBgSize"
-      :width="props.lineWidth"
-    ></Line>
-    <Line
-      :background="props.lineBg"
-      :background-size="props.lineBgSize"
-      :width="props.lineWidth"
-      class="ml-auto"
-    ></Line>
+    <Line class="w-3.5 lg:w-5" :background="props.lineBg"></Line>
+    <Line class="ml-auto w-3.5 lg:w-5" :background="props.lineBg"></Line>
   </div>
 </template>
