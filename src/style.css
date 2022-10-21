@@ -7,13 +7,5 @@
 }
 
 body {
-  margin: 0 auto;
-  display: flex;
-  min-width: 320px;
-  max-width: 1280px;
-  min-height: 100vh;
-}
-
-#app {
-  width: 100%;
+  @apply min-h-screen bg-[#f3f2ef] dark:bg-black;
 }
