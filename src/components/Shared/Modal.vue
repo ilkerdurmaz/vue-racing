@@ -1,6 +1,6 @@
 <script setup>
-import ButtonComp from "./ButtonComp.vue";
-import CloseButtonComp from "./CloseButtonComp.vue";
+import GradientButton from "./GradientButton.vue";
+import IconButton from "./IconButton.vue";
 defineProps({
   title: {
     type: String,
@@ -18,28 +18,39 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  darkMode: {
+    type: Boolean,
+    default: true,
+  },
 });
+const emits = defineEmits(["modalClose", "acceptClick"]);
 </script>
 
 <template>
   <Teleport to="#modal">
     <Transition name="modal-outer">
-      <div class="modal-container" v-show="modalActive">
+      <div
+        class="modal-container"
+        :class="{ dark: darkMode }"
+        v-show="modalActive"
+      >
         <Transition name="modal-inner">
           <div class="modal" v-if="modalActive">
             <div class="modal-header">
               <h1 class="text-2xl">{{ title }}</h1>
-              <CloseButtonComp @click="$emit('close')"></CloseButtonComp>
+              <IconButton @click="emits('modalClose')"
+                ><i class="bi bi-x-lg"></i
+              ></IconButton>
             </div>
             <div class="modal-body">
               <slot></slot>
             </div>
             <div class="modal-footer">
-              <ButtonComp
+              <GradientButton
                 v-if="showAcceptButton"
-                @click="$emit('acceptClick')"
+                @btnClick="emit('acceptClick')"
                 :text="acceptButtonText"
-              ></ButtonComp>
+              ></GradientButton>
             </div>
           </div>
         </Transition>
@@ -50,10 +61,10 @@ defineProps({
 
 <style scoped>
 .modal-container {
-  @apply fixed inset-0 bg-gray-900 bg-opacity-75 overflow-y-auto flex justify-center items-center p-2;
+  @apply fixed inset-0 bg-gray-900 bg-opacity-75 overflow-y-auto flex justify-center items-center p-2 z-10;
 }
 .modal {
-  @apply flex flex-col justify-between bg-zinc-100 dark:bg-zinc-900 w-[480px] h-[640px] rounded-lg overflow-hidden border-2 border-white dark:border-zinc-700;
+  @apply flex flex-col justify-between bg-zinc-100 dark:bg-zinc-900 min-w-[320px] min-h-[160px] rounded-lg overflow-hidden border-2 border-white dark:border-zinc-700;
 }
 .modal-body {
 }
