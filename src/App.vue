@@ -1,49 +1,122 @@
 <script setup>
-import { computed, ref } from "vue";
-import Lane from "./components/LaneComp/Lane.vue";
-import List from "./components/ListComp/List.vue";
-const images = [
-  "https://upload.wikimedia.org/wikipedia/commons/c/c4/Eo_circle_red_number-1.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/8/8f/Eo_circle_red_number-2.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/6/62/Eo_circle_red_number-3.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/c/cd/Eo_circle_red_number-4.svg",
-  "https://upload.wikimedia.org/wikipedia/commons/6/68/Eo_circle_red_number-5.svg",
-];
+import { ref } from "vue";
+import Lane from "./components/LaneComp/LaneComp.vue";
+import List from "./components/ListComp/ListComp.vue";
+import HeaderComp from "./components/HeaderComp.vue";
+import Modal from "./components/Shared/Modal.vue";
+import FooterComp from "./components/FooterComp.vue";
+import SettingsComp from "./components/SettingsComp/SettingsComp.vue";
+import laneData from "./assets/data/lanes.json";
+import PingText from "./components/PingTextComp.vue";
 
+const darkMode = ref(
+  localStorage.getItem("darkMode")
+    ? JSON.parse(localStorage.getItem("darkMode"))
+    : true
+);
+const lanes = ref(
+  localStorage.getItem("laneSettings")
+    ? JSON.parse(localStorage.getItem("laneSettings"))
+    : laneData
+);
 const isStarted = ref(false);
-const standings = ref([]);
+const showModal = ref(false);
+const startButtonDisabled = ref(false);
+const count = ref(5);
+const countDownShow = ref(false);
 
-function livePosition(val, index) {
-  standings.value[index] = val;
+function darkModeHandler() {
+  darkMode.value = !darkMode.value;
+  localStorage.setItem("darkMode", darkMode.value);
+}
+
+function livePositions(racerInfo) {}
+
+function saveSettings() {
+  showModal.value = false;
+  localStorage.setItem("laneSettings", JSON.stringify(lanes.value));
+}
+
+function closeWithoutSave() {
+  showModal.value = false;
+  lanes.value = laneData;
+}
+
+function startRace() {
+  countDownToStart();
+}
+
+function countDownToStart() {
+  startButtonDisabled.value = true;
+  countDownShow.value = true;
+  const interval = setInterval(() => {
+    count.value--;
+    if (count.value == 0) {
+      clearInterval(interval);
+      isStarted.value = true;
+      countDownShow.value = false;
+    }
+  }, 1000);
 }
 </script>
-
 <template>
-  <div class="mt-4 grid grid-cols-4 gap-2 rounded-lg bg-slate-200 p-2">
-    <div class="col-span-4 lg:col-span-3">
-      <div class="overflow-hidden rounded-lg">
-        <Lane
-          v-for="index in 8"
-          :key="index"
-          :started="isStarted"
-          @position="(val) => livePosition(val, index - 1)"
-          img-src="https://i.pinimg.com/originals/dc/19/e9/dc19e9b94a372ebc21ffeb7623d5632a.png"
-          background="url(https://img.freepik.com/free-vector/seamless-green-grass-pattern_1284-52275.jpg)"
-          line-bg="url(https://cdn.pixabay.com/photo/2012/04/10/16/57/pattern-26399_1280.png)"
-        ></Lane>
+  <div :class="{ dark: darkMode }">
+    <main class="min-h-screen dark:bg-neutral-900">
+      <HeaderComp
+        title="Vue Racing App"
+        :main-btn-disable="startButtonDisabled"
+        main-btn-text="Start Race"
+        :dark-mode="darkMode"
+        @mainBtnClick="startRace"
+        @darkModeClick="darkModeHandler"
+      ></HeaderComp>
+      <div
+        class="grid grid-cols-4 rounded-lg max-w-7xl mx-auto gap-2 px-1 mt-2 sm:mt-4 sm:gap-4 sm:px-4"
+      >
+        <div class="col-span-4 lg:col-span-3">
+          <div class="overflow-hidden rounded-lg relative">
+            <PingText
+              color="white"
+              :text="count + ''"
+              v-if="countDownShow"
+            ></PingText>
+            <Lane
+              v-for="(lane, index) in lanes"
+              :key="lane.racerName"
+              :background="lane.laneColor"
+              lineBg="black"
+              :started="isStarted"
+              @position="
+                (val) =>
+                  livePositions({
+                    position: val.position,
+                    speed: val.speed,
+                    laneNumber: index,
+                    laneColor: lane.laneColor,
+                    racerName: lane.racerName,
+                  })
+              "
+            ></Lane>
+          </div>
+        </div>
+        <div class="col-span-4 lg:col-span-1">
+          <List></List>
+        </div>
       </div>
-    </div>
-    <div class="col-span-4 lg:col-span-1">
-      <List></List>
-    </div>
-    <button
-      @click="isStarted = true"
-      class="m-3 rounded border-2 border-blue-700 p-3"
-    >
-      başla
-    </button>
+
+      <Modal
+        :modal-active="showModal"
+        @modalClose="closeWithoutSave"
+        :dark-mode="darkMode"
+        title="Racing Lane Settings"
+        accept-button-text="Save"
+        @acceptClick="saveSettings"
+      >
+        <SettingsComp v-model:lanes="lanes"></SettingsComp>
+      </Modal>
+      <FooterComp @settingsBtnClick="showModal = true"></FooterComp>
+    </main>
   </div>
-  {{ standings }}
 </template>
 
 <style scoped></style>
