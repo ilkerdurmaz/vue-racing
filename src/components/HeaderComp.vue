@@ -1,6 +1,6 @@
 <script setup>
 import GradientButton from "./Shared/GradientButton.vue";
-import CloseButtonComp from "./Shared/IconButton.vue";
+import IconButton from "./Shared/IconButton.vue";
 
 const props = defineProps({
   title: {
@@ -14,6 +14,10 @@ const props = defineProps({
   mainBtnText: {
     type: String,
     default: "Main Button",
+  },
+  mainBtnDisable: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -29,21 +33,22 @@ const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
     >
       <h1 class="text-xl sm:text-2xl">{{ props.title }}</h1>
       <div class="flex gap-2 sm:gap-4 items-center">
-        <CloseButtonComp
+        <IconButton
           @click="emit('darkModeClick')"
           class="bg-clip-text bg-gradient-to-br from-pink-500 to-orange-400"
         >
           <i
             v-if="props.darkMode"
-            class="bi bi-moon-stars text-2xl text-transparent hover:text-gray-300"
-          ></i>
-          <i
-            v-if="!props.darkMode"
             class="bi bi-brightness-high text-2xl text-transparent hover:text-gray-300"
           ></i>
-        </CloseButtonComp>
+          <i
+            v-else
+            class="bi bi-moon-stars text-2xl text-transparent hover:text-gray-300"
+          ></i>
+        </IconButton>
         <GradientButton
-          :text="props.mainBtnText"
+          :btnDisable="props.mainBtnDisable"
+          :btnText="props.mainBtnText"
           @click="emit('mainBtnClick')"
         ></GradientButton>
       </div>
