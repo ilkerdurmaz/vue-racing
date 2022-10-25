@@ -23,7 +23,7 @@ defineProps({
     default: true,
   },
 });
-const emits = defineEmits(["modalClose", "acceptClick"]);
+const emit = defineEmits(["modalClose", "acceptClick"]);
 </script>
 
 <template>
@@ -38,7 +38,7 @@ const emits = defineEmits(["modalClose", "acceptClick"]);
           <div class="modal" v-if="modalActive">
             <div class="modal-header">
               <h1 class="text-2xl">{{ title }}</h1>
-              <IconButton @click="emits('modalClose')"
+              <IconButton @click="emit('modalClose')"
                 ><i class="bi bi-x-lg"></i
               ></IconButton>
             </div>
@@ -48,7 +48,7 @@ const emits = defineEmits(["modalClose", "acceptClick"]);
             <div class="modal-footer">
               <GradientButton
                 v-if="showAcceptButton"
-                @btnClick="emit('acceptClick')"
+                @click="emit('acceptClick')"
                 :text="acceptButtonText"
               ></GradientButton>
             </div>
@@ -64,12 +64,12 @@ const emits = defineEmits(["modalClose", "acceptClick"]);
   @apply fixed inset-0 bg-gray-900 bg-opacity-75 overflow-y-auto flex justify-center items-center p-2 z-10;
 }
 .modal {
-  @apply flex flex-col justify-between bg-zinc-100 dark:bg-zinc-900 min-w-[320px] min-h-[160px] rounded-lg overflow-hidden border-2 border-white dark:border-zinc-700;
+  @apply flex flex-col justify-between bg-zinc-100 dark:bg-neutral-900 min-w-[320px] min-h-[160px] rounded-lg overflow-hidden border-2 border-white dark:border-zinc-700;
 }
 .modal-body {
 }
 .modal-header {
-  @apply flex justify-between items-center p-3 text-white bg-gradient-to-br from-pink-500 to-orange-400 dark:bg-gradient-to-b dark:from-zinc-800 dark:to-black;
+  @apply flex justify-between items-center p-3 text-white bg-gradient-to-br from-pink-500 to-orange-400 dark:from-neutral-800 dark:to-neutral-800;
 }
 .modal-footer {
   @apply flex justify-end p-3;
