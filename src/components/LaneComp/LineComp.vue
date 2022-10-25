@@ -2,16 +2,16 @@
 defineProps({
   background: {
     type: String,
-    default: "red",
+    default: "white",
   },
 });
 </script>
 
 <template>
   <div
-    class="bg-white bg-[length:50px]"
+    class="bg-[length:50px]"
     :style="{
-      backgroundImage: background,
+      background: background,
     }"
   ></div>
 </template>
