@@ -14,8 +14,7 @@ const props = defineProps({
 
 const emit = defineEmits(["settingsChanged"]);
 const changedLaneSettings = reactive({
-  laneColor: props.laneSettings.laneColor,
-  racerName: props.laneSettings.racerName,
+  ...props.laneSettings,
 });
 
 function nameChangeHandler(e) {
