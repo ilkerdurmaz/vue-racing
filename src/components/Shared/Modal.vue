@@ -49,7 +49,7 @@ const emit = defineEmits(["modalClose", "acceptClick"]);
               <GradientButton
                 v-if="showAcceptButton"
                 @click="emit('acceptClick')"
-                :text="acceptButtonText"
+                :btn-text="acceptButtonText"
               ></GradientButton>
             </div>
           </div>
