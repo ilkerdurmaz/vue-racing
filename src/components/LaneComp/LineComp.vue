@@ -9,9 +9,9 @@ defineProps({
 
 <template>
   <div
-    class="bg-[length:50px]"
+    class="bg-[length:29px] sm:bg-[length:40px]"
     :style="{
-      background: background,
+      backgroundImage: background,
     }"
   ></div>
 </template>
