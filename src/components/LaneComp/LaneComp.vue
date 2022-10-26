@@ -37,9 +37,15 @@ function sleep(m) {
   return new Promise((resolve) => (timeout = setTimeout(resolve, m)));
 }
 
+const frame = ref(1);
+
 async function move() {
   randomAcceleration();
   for (let i = 0; i < 500; i++) {
+    if (i % 4 == 0) {
+      frame.value++;
+      if (frame.value == 12) frame.value = 1;
+    }
     position.value += 0.2;
     await sleep(31 - speed.value); // works different in mozilla and chrome
     emit("imgPositionChanged", Math.round(position.value));
@@ -79,7 +85,10 @@ function randomAcceleration() {
     }"
   >
     <span class="relative" :style="{ left: position + '%' }">
-      <Image class="w-12 sm:w-16 lg:w-28" :img-src="props.imgSrc"></Image>
+      <Image
+        class="w-12 sm:w-16 lg:w-28"
+        :img-src="`src/assets/horse/${frame}.png`"
+      ></Image>
     </span>
     <Line class="w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
     <Line class="ml-auto w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
