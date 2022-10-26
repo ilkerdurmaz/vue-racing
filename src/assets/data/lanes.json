@@ -1,0 +1,50 @@
+[
+  {
+    "racerName": "First Racer",
+    "laneColor": "#ff0000",
+    "laneNumber": 1,
+    "position": 0
+  },
+  {
+    "racerName": "Second Racer",
+    "laneColor": "#FF7F00",
+    "laneNumber": 2,
+    "position": 0
+  },
+  {
+    "racerName": "Third Racer",
+    "laneColor": "#FFFF00",
+    "laneNumber": 3,
+    "position": 0
+  },
+  {
+    "racerName": "Fourth Racer",
+    "laneColor": "#00FF00",
+    "laneNumber": 4,
+    "position": 0
+  },
+  {
+    "racerName": "Fifth Racer",
+    "laneColor": "#0000FF",
+    "laneNumber": 5,
+    "position": 0
+  },
+  {
+    "racerName": "Sixth Racer",
+    "laneColor": "#4B0082",
+    "laneNumber": 6,
+    "position": 0
+  },
+  {
+    "racerName": "Seventh Racer",
+    "laneColor": "#9400D3",
+    "laneNumber": 7,
+    "position": 0
+  },
+  {
+    "racerName": "Eighth Racer",
+    "laneColor": "#ee82ee",
+    "laneNumber": 8,
+    "position": 0
+  }
+]
