@@ -27,13 +27,14 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["position"]);
+const emit = defineEmits(["imgPositionChanged"]);
 const speed = ref(30);
 const position = ref(0);
 let interval;
+let timeout;
 
 function sleep(m) {
-  return new Promise((resolve) => setTimeout(resolve, m));
+  return new Promise((resolve) => (timeout = setTimeout(resolve, m)));
 }
 
 async function move() {
@@ -41,18 +42,21 @@ async function move() {
   for (let i = 0; i < 500; i++) {
     position.value += 0.2;
     await sleep(31 - speed.value); // works different in mozilla and chrome
-    emit("position", { position: Math.round(position.value), speed });
+    emit("imgPositionChanged", Math.round(position.value));
   }
   clearInterval(interval);
+}
+
+function resetLane() {
+  clearInterval(interval);
+  clearTimeout(timeout);
+  position.value = 0;
 }
 
 watch(
   () => props.started,
   () => {
-    if (props.started) {
-      console.log("move çalıştı");
-      move();
-    }
+    props.started ? move() : resetLane();
   }
 );
 
@@ -77,7 +81,7 @@ function randomAcceleration() {
     <span class="relative" :style="{ left: position + '%' }">
       <Image class="w-12 sm:w-16 lg:w-28" :img-src="props.imgSrc"></Image>
     </span>
-    <Line class="w-3.5 lg:w-5" :background="props.lineBg"></Line>
-    <Line class="ml-auto w-3.5 lg:w-5" :background="props.lineBg"></Line>
+    <Line class="w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
+    <Line class="ml-auto w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
   </div>
 </template>
