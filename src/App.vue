@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch, onUpdated } from "vue";
+import { ref, computed } from "vue";
 import Lane from "./components/LaneComp/LaneComp.vue";
 import List from "./components/ListComp/ListComp.vue";
 import HeaderComp from "./components/HeaderComp.vue";
@@ -7,8 +7,8 @@ import Modal from "./components/Shared/Modal.vue";
 import FooterComp from "./components/FooterComp.vue";
 import SettingsComp from "./components/SettingsComp/SettingsComp.vue";
 import laneData from "./assets/data/lanes.json";
-import PingText from "./components/PingTextComp.vue";
-import GradientButton from "./components/Shared/GradientButton.vue";
+import PingText from "./components/Shared/PingTextComp.vue";
+import ResultsComp from "./components/ResultsComp/ResultsComp.vue";
 
 const darkMode = ref(
   localStorage.getItem("darkMode")
@@ -22,7 +22,7 @@ const lanes = ref(
 );
 const isStarted = ref(false);
 const showModal = ref(false);
-const count = ref(5);
+const count = ref(3);
 const countDownShow = ref(false);
 const tempList = ref([...lanes.value]);
 
@@ -53,6 +53,7 @@ function closeWithoutSave() {
 
 function resetLanes() {
   isStarted.value = false;
+  countDownShow.value = false;
 }
 
 function startRace() {
@@ -68,7 +69,7 @@ function countDownToStart() {
       clearInterval(interval);
       isStarted.value = true;
       countDownShow.value = false;
-      count.value = 5;
+      count.value = 3;
     }
   }, 1000);
 }
@@ -89,11 +90,18 @@ function countDownToStart() {
         class="grid grid-cols-4 rounded-lg max-w-7xl mx-auto gap-2 px-1 mt-2 sm:mt-4 sm:gap-4 sm:px-4"
       >
         <div class="col-span-4 xl:col-span-3">
-          <div class="overflow-hidden rounded-lg relative">
+          <div
+            class="overflow-hidden rounded-lg relative border-2 dark:border-neutral-700"
+          >
+            <ResultsComp
+              :results-active="isFinished"
+              :results="sortedLanes"
+              @close-btn-click="resetLanes"
+            ></ResultsComp>
             <PingText
               color="white"
               :text="count + ''"
-              v-if="countDownShow"
+              :ping-text-active="countDownShow"
             ></PingText>
             <Lane
               v-for="(lane, index) in lanes"
@@ -125,4 +133,8 @@ function countDownToStart() {
   </div>
 </template>
 
-<style scoped></style>
+<style>
+.serif-font {
+  font-family: "Times New Roman", Times, serif;
+}
+</style>
