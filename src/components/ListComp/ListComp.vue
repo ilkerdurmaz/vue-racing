@@ -12,6 +12,7 @@ const props = defineProps({
   <div class="list">
     <div class="list-background">
       <div class="list-header">
+        <i class="bi bi-trophy text-2xl text-white"></i>
         <h1 class="title">Leaderboard</h1>
       </div>
       <div class="list-body">
