@@ -57,6 +57,7 @@ function resetLane() {
   clearInterval(interval);
   clearTimeout(timeout);
   position.value = 0;
+  emit("imgPositionChanged", Math.round(position.value));
 }
 
 watch(
@@ -87,7 +88,7 @@ function randomAcceleration() {
     <span class="relative" :style="{ left: position + '%' }">
       <Image
         class="w-12 sm:w-16 lg:w-28"
-        :img-src="`src/assets/horse/${frame}.png`"
+        :img-src="`/horse/${frame}.png`"
       ></Image>
     </span>
     <Line class="w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
