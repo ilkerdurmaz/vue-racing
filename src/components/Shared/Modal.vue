@@ -61,7 +61,7 @@ const emit = defineEmits(["modalClose", "acceptClick"]);
 
 <style scoped>
 .modal-container {
-  @apply fixed inset-0 bg-gray-900 bg-opacity-75 overflow-y-auto flex justify-center items-center p-2 z-10;
+  @apply fixed inset-0 bg-neutral-800 bg-opacity-75 overflow-y-auto flex justify-center items-center p-2 z-10;
 }
 .modal {
   @apply flex flex-col justify-between bg-zinc-100 dark:bg-neutral-900 min-w-[320px] min-h-[160px] rounded-lg overflow-hidden border-2 border-white dark:border-zinc-700;
