@@ -29,10 +29,7 @@ const props = defineProps({
         >
           <div class="list-item-content">
             <span>{{ lane.racerName }}</span>
-            <span
-              class="lane-number"
-              :style="{ backgroundColor: lane.laneColor }"
-            >
+            <span class="lane-number" :style="{ background: lane.laneColor }">
               {{ lane.laneNumber }}
             </span>
           </div>
