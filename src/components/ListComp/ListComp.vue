@@ -16,9 +16,7 @@ const props = defineProps({
         <h1 class="title">Leaderboard</h1>
       </div>
       <div class="list-body">
-        <div
-          class="flex text-xs text-neutral-400 divide-x dark:divide-neutral-700"
-        >
+        <div class="list-titles">
           <span class="p-1 pl-0">PLACE</span>
           <span class="p-1">RACER NAME</span>
           <span class="ml-auto p-1">LANE</span>
@@ -29,16 +27,14 @@ const props = defineProps({
           :key="lane.laneNumber"
           :index="index + 1"
         >
-          <div class="text-lg flex items-center justify-between gap-2 w-full">
+          <div class="list-item-content">
             <span>{{ lane.racerName }}</span>
             <span
-              class="flex w-8 h-8 shrink-0 items-center justify-center rounded-full"
-              ><i
-                class="bi text-2xl px-2 flex"
-                :class="[`bi-${lane.laneNumber}-circle`]"
-                :style="{ color: lane.laneColor }"
-              ></i
-            ></span>
+              class="lane-number"
+              :style="{ backgroundColor: lane.laneColor }"
+            >
+              {{ lane.laneNumber }}
+            </span>
           </div>
         </ListItem>
       </div>
@@ -61,5 +57,14 @@ const props = defineProps({
 }
 .list-body {
   @apply flex flex-col divide-y px-2 dark:divide-neutral-700 dark:text-white bg-white dark:bg-neutral-900 rounded-md;
+}
+.list-titles {
+  @apply flex text-xs text-neutral-400 divide-x dark:divide-neutral-700;
+}
+.list-item-content {
+  @apply text-lg flex items-center justify-between gap-2 w-full;
+}
+.lane-number {
+  @apply flex w-8 h-8 shrink-0 items-center justify-center rounded-full text-lg text-white text-shadow-sm shadow-black font-serif border-2 dark:border-neutral-700;
 }
 </style>
