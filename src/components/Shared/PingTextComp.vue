@@ -12,7 +12,7 @@ const props = defineProps({
     type: String,
     default: "black",
   },
-  ping: {
+  animationActive: {
     type: Boolean,
     default: true,
   },
@@ -25,12 +25,9 @@ const props = defineProps({
 
 <template>
   <Transition name="backdrop-transition">
-    <div
-      v-if="props.pingTextActive"
-      class="bg-neutral-900 bg-opacity-75 overflow-hidden flex justify-center items-center z-10 absolute h-full w-full"
-    >
+    <div v-if="props.pingTextActive" class="backdrop">
       <div
-        :class="{ 'animate-countdown': props.ping }"
+        :class="{ 'animate-countdown': props.animationActive }"
         :style="{ fontSize: `${props.size}px`, color: props.color }"
       >
         {{ props.text }}
@@ -40,10 +37,12 @@ const props = defineProps({
 </template>
 
 <style scoped>
+.backdrop {
+  @apply bg-neutral-900 bg-opacity-75 overflow-hidden flex justify-center items-center z-10 absolute h-full w-full;
+}
 .animate-countdown {
   animation: ping 1050ms cubic-bezier(0, 0, 0.2, 1) infinite;
 }
-
 @keyframes ping {
   75%,
   100% {
@@ -51,7 +50,6 @@ const props = defineProps({
     opacity: 0;
   }
 }
-
 .backdrop-transition-enter-active,
 .backdrop-transition-leave-active {
   @apply transition duration-150;

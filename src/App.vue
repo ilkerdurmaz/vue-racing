@@ -10,8 +10,9 @@ import laneData from "./assets/data/lanes.json";
 import PingText from "./components/Shared/PingTextComp.vue";
 import ResultsComp from "./components/ResultsComp/ResultsComp.vue";
 import { readLocal, writeLocal } from "./utils";
+
 const darkMode = ref(
-  readLocal("darkMode") == null ? true : readLocal("darkMode")
+  readLocal("darkMode") == null ? false : readLocal("darkMode")
 );
 const lanes = ref(
   readLocal("laneSettings") == null ? laneData : readLocal("laneSettings")
@@ -40,16 +41,10 @@ function saveSettings() {
   writeLocal("laneSettings", lanes.value);
 }
 
-function closeWithoutSave() {
-  showModal.value = false;
-  // lanes.value = localStorage.getItem("laneSettings")
-  //   ? JSON.parse(localStorage.getItem("laneSettings"))
-  //   : laneData;
-}
-
 function resetLanes() {
   isStarted.value = false;
   countDownShow.value = false;
+  tempList.value = [...lanes.value];
 }
 
 function startRace() {
@@ -73,7 +68,7 @@ function countDownToStart() {
 
 <template>
   <div :class="{ dark: darkMode }">
-    <main class="min-h-screen dark:bg-neutral-900">
+    <div class="min-h-screen dark:bg-neutral-900">
       <HeaderComp
         title="Vue Racing App"
         :main-btn-disable="(isStarted && !isFinished) || countDownShow"
@@ -82,49 +77,54 @@ function countDownToStart() {
         @mainBtnClick="startRace"
         @darkModeClick="darkModeHandler"
       ></HeaderComp>
-      <div
-        class="grid grid-cols-4 rounded-lg max-w-7xl mx-auto gap-2 px-1 mt-2 sm:mt-4 sm:gap-4 sm:px-4"
-      >
-        <div class="col-span-4 xl:col-span-3">
-          <div
-            class="overflow-hidden rounded-lg relative border-2 dark:border-neutral-700"
-          >
-            <ResultsComp
-              :results-active="isFinished"
-              :results="sortedLanes"
-              @close-btn-click="resetLanes"
-            ></ResultsComp>
-            <PingText
-              color="white"
-              :text="count + ''"
-              :ping-text-active="countDownShow"
-            ></PingText>
-            <Lane
-              v-for="(lane, index) in lanes"
-              :key="lane.racerName"
-              :background="lane.laneColor"
-              lineBg="url('https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX2446338.jpg')"
-              :started="isStarted"
-              @img-position-changed="(val) => (lanes[index].position = val)"
-            ></Lane>
-          </div>
-        </div>
-        <div class="col-span-4 xl:col-span-1">
+      <main class="main-container">
+        <section class="race-track">
+          <ResultsComp
+            :results-active="isFinished"
+            :results="sortedLanes"
+            @close-btn-click="resetLanes"
+          ></ResultsComp>
+          <PingText
+            color="white"
+            :text="count + ''"
+            :ping-text-active="countDownShow"
+          ></PingText>
+          <Lane
+            v-for="(lane, index) in lanes"
+            :key="lane.racerName"
+            :background="lane.laneColor"
+            lineBg="url('https://d2gg9evh47fn9z.cloudfront.net/1600px_COLOURBOX2446338.jpg')"
+            :started="isStarted"
+            @img-position-changed="(val) => (lanes[index].position = val)"
+          ></Lane>
+        </section>
+        <section class="leaderboard">
           <List :list="sortedLanes"></List>
-        </div>
-      </div>
-
-      <Modal
-        :modal-active="showModal"
-        @modalClose="closeWithoutSave"
-        :dark-mode="darkMode"
-        title="Racing Lane Settings"
-        accept-button-text="Save"
-        @acceptClick="saveSettings"
-      >
-        <SettingsComp v-model:lanes="lanes"></SettingsComp>
-      </Modal>
+        </section>
+      </main>
       <FooterComp @settingsBtnClick="showModal = true"></FooterComp>
-    </main>
+    </div>
+    <Modal
+      :modal-active="showModal"
+      @modalClose="showModal = false"
+      :dark-mode="darkMode"
+      title="Racing Lane Settings"
+      accept-button-text="Save"
+      @acceptClick="saveSettings"
+    >
+      <SettingsComp v-model:lanes="lanes"></SettingsComp>
+    </Modal>
   </div>
 </template>
+
+<style scoped>
+.main-container {
+  @apply grid grid-cols-4 rounded-lg max-w-7xl mx-auto gap-2 px-1 mt-2 sm:mt-4 sm:gap-4 sm:px-4;
+}
+.race-track {
+  @apply col-span-4 xl:col-span-3 overflow-hidden rounded-lg relative border-2 dark:border-neutral-700;
+}
+.leaderboard {
+  @apply col-span-4 xl:col-span-1;
+}
+</style>

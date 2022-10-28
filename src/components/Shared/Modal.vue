@@ -29,7 +29,7 @@ const emit = defineEmits(["modalClose", "acceptClick"]);
 <template>
   <Teleport to="#modal">
     <Transition name="modal-outer">
-      <div
+      <aside
         class="modal-container"
         :class="{ dark: darkMode }"
         v-show="modalActive"
@@ -54,7 +54,7 @@ const emit = defineEmits(["modalClose", "acceptClick"]);
             </div>
           </div>
         </Transition>
-      </div>
+      </aside>
     </Transition>
   </Teleport>
 </template>

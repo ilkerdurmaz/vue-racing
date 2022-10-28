@@ -11,7 +11,7 @@ function settingsChangedHandler(val, index) {
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 p-2 sm:p-3">
+  <section class="flex flex-col gap-2 p-2 sm:p-3">
     <LaneSettings
       v-for="(lane, index) in lanes"
       :key="lane.racerName"
@@ -19,7 +19,5 @@ function settingsChangedHandler(val, index) {
       :lane-index="index"
       @settings-changed="(val) => settingsChangedHandler(val, index)"
     ></LaneSettings>
-  </div>
+  </section>
 </template>
-
-<style scoped></style>

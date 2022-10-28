@@ -14,6 +14,7 @@ const props = defineProps({
   },
 });
 </script>
+
 <template>
   <img :src="props.imgSrc" :alt="props.alt" :width="props.size" />
 </template>

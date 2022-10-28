@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex items-center gap-2 py-1 lg:py-2.5 xl:py-4">
+  <div class="list-item">
     <span
       class="index-symbol font-serif"
       :class="[index > 3 ? 'gradient-others' : `gradient-${props.index}`]"
@@ -19,6 +19,9 @@ const props = defineProps({
 </template>
 
 <style scoped>
+.list-item {
+  @apply flex items-center gap-2 py-1 lg:py-2.5 xl:py-4;
+}
 .index-symbol {
   @apply flex shrink-0 h-8 w-8 items-center justify-center rounded-full text-white border-2 text-lg text-shadow-sm shadow-black;
 }

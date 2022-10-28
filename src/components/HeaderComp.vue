@@ -30,17 +30,13 @@ const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
 </script>
 
 <template>
-  <header
-    class="border-b dark:bg-neutral-800 dark:text-white dark:border-neutral-700 shadow dark:shadow-zinc-900"
-  >
-    <div
-      class="flex justify-between items-center py-2 px-2 sm:px-4 max-w-7xl mx-auto"
-    >
-      <span class="flex items-center gap-1">
+  <header class="header-bar">
+    <div class="header-container">
+      <span class="title-group">
         <Image :img-src="props.titleIcon" class="object-fit w-8"></Image>
         <h1 class="text-xl sm:text-2xl">{{ props.title }}</h1>
       </span>
-      <div class="flex gap-2 sm:gap-4 items-center">
+      <div class="btn-group">
         <IconButton
           @click="emit('darkModeClick')"
           class="bg-clip-text bg-gradient-to-br from-pink-500 to-orange-400"
@@ -64,4 +60,17 @@ const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
   </header>
 </template>
 
-<style scoped></style>
+<style scoped>
+.header-bar {
+  @apply border-b dark:bg-neutral-800 dark:text-white dark:border-neutral-700 shadow dark:shadow-zinc-900;
+}
+.header-container {
+  @apply flex justify-between items-center py-2 px-2 sm:px-4 max-w-7xl mx-auto;
+}
+.title-group {
+  @apply flex items-center gap-1;
+}
+.btn-group {
+  @apply flex gap-2 sm:gap-4 items-center;
+}
+</style>

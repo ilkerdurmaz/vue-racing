@@ -28,21 +28,16 @@ function laneColorChangeHandler(e) {
 </script>
 
 <template>
-  <div
-    class="flex gap-2 dark:text-white border rounded-md p-2 border-neutral-400"
-  >
-    <span
-      class="flex h-8 w-8 items-center justify-center rounded-full text-white bg-gradient-to-br from-pink-500 to-orange-400 pb-0.5 text-lg"
-      >{{ laneIndex + 1 }}</span
-    >
+  <div class="settings-container">
+    <span class="index-symbol">{{ props.laneIndex + 1 }}</span>
     <input
       type="text"
       :value="props.laneSettings.racerName"
       @change="nameChangeHandler"
       placeholder="Racer Name"
-      class="border rounded px-1 bg-transparent border-neutral-400 dark:border-neutral-700 w-40"
+      class="racer-name-input"
     />
-    <span class="flex items-center gap-2 text-xs sm:text-base"
+    <span class="lane-color"
       >Lane Color:
       <input
         type="color"
@@ -54,6 +49,18 @@ function laneColorChangeHandler(e) {
 </template>
 
 <style scoped>
+.settings-container {
+  @apply flex gap-2 dark:text-white border rounded-md p-2 border-neutral-400;
+}
+.index-symbol {
+  @apply flex h-8 w-8 items-center justify-center rounded-full text-white bg-gradient-to-br from-pink-500 to-orange-400 pb-0.5 text-lg;
+}
+.racer-name-input {
+  @apply border rounded px-1 bg-transparent border-neutral-400 dark:border-neutral-700 w-40;
+}
+.lane-color {
+  @apply flex items-center gap-2 text-xs sm:text-base;
+}
 .color-picker {
   -webkit-appearance: none;
   @apply p-0 border border-neutral-700 rounded-full w-8 h-8;
