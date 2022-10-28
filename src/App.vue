@@ -9,16 +9,12 @@ import SettingsComp from "./components/SettingsComp/SettingsComp.vue";
 import laneData from "./assets/data/lanes.json";
 import PingText from "./components/Shared/PingTextComp.vue";
 import ResultsComp from "./components/ResultsComp/ResultsComp.vue";
-
+import { readLocal, writeLocal } from "./utils";
 const darkMode = ref(
-  localStorage.getItem("darkMode")
-    ? JSON.parse(localStorage.getItem("darkMode"))
-    : true
+  readLocal("darkMode") == null ? true : readLocal("darkMode")
 );
 const lanes = ref(
-  localStorage.getItem("laneSettings")
-    ? JSON.parse(localStorage.getItem("laneSettings"))
-    : laneData
+  readLocal("laneSettings") == null ? laneData : readLocal("laneSettings")
 );
 const isStarted = ref(false);
 const showModal = ref(false);
@@ -36,12 +32,12 @@ const isFinished = computed(() => {
 
 function darkModeHandler() {
   darkMode.value = !darkMode.value;
-  localStorage.setItem("darkMode", darkMode.value);
+  writeLocal("darkMode", darkMode.value);
 }
 
 function saveSettings() {
   showModal.value = false;
-  localStorage.setItem("laneSettings", JSON.stringify(lanes.value));
+  writeLocal("laneSettings", lanes.value);
 }
 
 function closeWithoutSave() {
@@ -132,9 +128,3 @@ function countDownToStart() {
     </main>
   </div>
 </template>
-
-<style>
-.serif-font {
-  font-family: "Times New Roman", Times, serif;
-}
-</style>
