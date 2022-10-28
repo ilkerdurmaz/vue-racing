@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <div
-    class="bg-[length:29px] sm:bg-[length:40px]"
+    class="bg-cover bg-center bg-no-repeat"
     :style="{
       backgroundImage: background,
     }"
