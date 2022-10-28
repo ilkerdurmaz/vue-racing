@@ -10,8 +10,8 @@ const props = defineProps({
     default: "gray",
   },
   bgSize: {
-    type: Number,
-    default: 150,
+    type: String,
+    default: "auto",
   },
   imgSrc: {
     type: String,
@@ -31,9 +31,8 @@ const props = defineProps({
 const emit = defineEmits(["imgPositionChanged"]);
 const speed = ref(30);
 const position = ref(0);
-let interval;
-
 const frame = ref(1);
+let interval;
 
 async function move() {
   randomAcceleration();
@@ -49,6 +48,13 @@ async function move() {
   clearInterval(interval);
 }
 
+function randomAcceleration() {
+  speed.value = getRandomInt(0, 15); // for randomize starting acceleration
+  interval = setInterval(() => {
+    speed.value = getRandomInt(0, 20);
+  }, getRandomInt(1000, 3000));
+}
+
 function resetLane() {
   clearInterval(interval);
   position.value = 0;
@@ -61,30 +67,25 @@ watch(
     props.started ? move() : resetLane();
   }
 );
-
-function randomAcceleration() {
-  speed.value = getRandomInt(0, 15); // for randomize starting acceleration
-  interval = setInterval(() => {
-    speed.value = getRandomInt(0, 20);
-  }, getRandomInt(1000, 3000));
-}
 </script>
 
 <template>
-  <div
-    class="flex pr-12 sm:pr-16 lg:pr-28"
-    :style="{
-      background: props.background,
-      backgroundSize: props.bgSize + 'px',
-    }"
-  >
-    <span class="relative" :style="{ left: position + '%' }">
-      <Image
-        class="w-12 sm:w-16 lg:w-28"
-        :img-src="`/horse/${frame}.png`"
-      ></Image>
-    </span>
-    <Line class="w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
+  <div class="flex">
+    <div
+      class="flex w-full pr-12 sm:pr-16 lg:pr-28 bg-center bg-no-repeat"
+      :style="{
+        background: props.background,
+        backgroundSize: props.bgSize,
+      }"
+    >
+      <span class="relative" :style="{ left: position + '%' }">
+        <Image
+          class="w-12 sm:w-16 lg:w-28"
+          :img-src="`/horse/${frame}.png`"
+        ></Image>
+      </span>
+      <Line class="w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
+    </div>
     <Line class="ml-auto w-3.5 sm:w-4 lg:w-5" :background="props.lineBg"></Line>
   </div>
 </template>
