@@ -1,49 +1,49 @@
 [
   {
     "racerName": "First Racer",
-    "laneColor": "#ff0000",
+    "laneColor": "linear-gradient(160deg, #ec4899 0%, #fb923c 100%)",
     "laneNumber": 1,
     "position": 0
   },
   {
     "racerName": "Second Racer",
-    "laneColor": "#FF7F00",
+    "laneColor": "linear-gradient(43deg, #4158D0 0%, #C850C0 46%, #FFCC70 100%)",
     "laneNumber": 2,
     "position": 0
   },
   {
     "racerName": "Third Racer",
-    "laneColor": "#FFFF00",
+    "laneColor": "linear-gradient(160deg, #0093E9 0%, #80D0C7 100%)",
     "laneNumber": 3,
     "position": 0
   },
   {
     "racerName": "Fourth Racer",
-    "laneColor": "#00FF00",
+    "laneColor": "linear-gradient( 68.4deg, rgba(99,251,215,1) -0.4%, rgba(5,222,250,1) 100.2% )",
     "laneNumber": 4,
     "position": 0
   },
   {
     "racerName": "Fifth Racer",
-    "laneColor": "#0000FF",
+    "laneColor": "radial-gradient( circle farthest-corner at 10% 20%, rgba(255,94,247,1) 17.8%, rgba(2,245,255,1) 100.2% )",
     "laneNumber": 5,
     "position": 0
   },
   {
     "racerName": "Sixth Racer",
-    "laneColor": "#4B0082",
+    "laneColor": "linear-gradient(45deg, #FA8BFF 0%, #2BD2FF 52%, #2BFF88 90%)",
     "laneNumber": 6,
     "position": 0
   },
   {
     "racerName": "Seventh Racer",
-    "laneColor": "#9400D3",
+    "laneColor": "linear-gradient(19deg, #B721FF 0%, #21D4FD 100%)",
     "laneNumber": 7,
     "position": 0
   },
   {
     "racerName": "Eighth Racer",
-    "laneColor": "#ee82ee",
+    "laneColor": "linear-gradient(147deg, #FF2525 0%, #FFE53B 74%)",
     "laneNumber": 8,
     "position": 0
   }
