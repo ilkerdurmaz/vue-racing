@@ -2,6 +2,7 @@
 import { ref, watch } from "vue";
 import Image from "../Shared/Image.vue";
 import Line from "./LineComp.vue";
+import { sleep, getRandomInt } from "../../utils.js";
 
 const props = defineProps({
   background: {
@@ -31,11 +32,6 @@ const emit = defineEmits(["imgPositionChanged"]);
 const speed = ref(30);
 const position = ref(0);
 let interval;
-let timeout;
-
-function sleep(m) {
-  return new Promise((resolve) => (timeout = setTimeout(resolve, m)));
-}
 
 const frame = ref(1);
 
@@ -55,7 +51,6 @@ async function move() {
 
 function resetLane() {
   clearInterval(interval);
-  clearTimeout(timeout);
   position.value = 0;
   emit("imgPositionChanged", Math.round(position.value));
 }
@@ -66,8 +61,6 @@ watch(
     props.started ? move() : resetLane();
   }
 );
-
-const getRandomInt = (min, max) => Math.round(Math.random() * max) + min;
 
 function randomAcceleration() {
   speed.value = getRandomInt(0, 15); // for randomize starting acceleration
