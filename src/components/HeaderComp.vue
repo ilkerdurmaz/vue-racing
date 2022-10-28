@@ -1,6 +1,7 @@
 <script setup>
 import GradientButton from "./Shared/GradientButton.vue";
 import IconButton from "./Shared/IconButton.vue";
+import Image from "./Shared/Image.vue";
 
 const props = defineProps({
   title: {
@@ -19,6 +20,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  titleIcon: {
+    type: String,
+    default: "vue.svg",
+  },
 });
 
 const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
@@ -31,7 +36,10 @@ const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
     <div
       class="flex justify-between items-center py-2 px-2 sm:px-4 max-w-7xl mx-auto"
     >
-      <h1 class="text-xl sm:text-2xl">{{ props.title }}</h1>
+      <span class="flex items-center gap-1">
+        <Image :img-src="props.titleIcon" class="object-fit w-8"></Image>
+        <h1 class="text-xl sm:text-2xl">{{ props.title }}</h1>
+      </span>
       <div class="flex gap-2 sm:gap-4 items-center">
         <IconButton
           @click="emit('darkModeClick')"
