@@ -34,20 +34,33 @@ const position = ref(0);
 const frame = ref(1);
 let interval;
 
+watch(
+  () => props.started,
+  () => {
+    props.started ? move() : resetLane();
+  }
+);
+/* 
+* increases position with a certain delay up to 100,
+*
+* Each position increase:
+- changes the frame value connected to img-src, resets it when the value is 12,
+- emits the changed position.
+*/
 async function move() {
   randomAcceleration();
   for (let i = 0; i < 500; i++) {
-    if (i % 4 == 0) {
-      frame.value++;
-      if (frame.value == 12) frame.value = 1;
-    }
+    if (i % 4 == 0) frame.value++;
+    if (frame.value > 12) frame.value = 1;
     position.value += 0.2;
     await sleep(31 - speed.value); // works different in mozilla and chrome
     emit("imgPositionChanged", Math.round(position.value));
   }
   clearInterval(interval);
 }
-
+/*
+ * rastgele belirlenen zaman aralıklarında ve verilen aralıkta speed değerini değiştirir.
+ */
 function randomAcceleration() {
   speed.value = getRandomInt(0, 15); // for randomize starting acceleration
   interval = setInterval(() => {
@@ -60,13 +73,6 @@ function resetLane() {
   position.value = 0;
   emit("imgPositionChanged", Math.round(position.value));
 }
-
-watch(
-  () => props.started,
-  () => {
-    props.started ? move() : resetLane();
-  }
-);
 </script>
 
 <template>

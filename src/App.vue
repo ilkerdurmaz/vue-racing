@@ -29,6 +29,7 @@ const sortedLanes = computed(() => {
 
 const isFinished = computed(() => {
   return sortedLanes.value[sortedLanes.value.length - 1].position == 100;
+  // returns true/false based on the position of the last element in the sortedLanes array
 });
 
 function darkModeHandler() {
@@ -51,7 +52,9 @@ function startRace() {
   resetLanes();
   countDownToStart();
 }
-
+/* shows the countdown component, 
+subtracts every second from the specified value, 
+when the value is 0, it closes the countdown component and starts the race. */
 function countDownToStart() {
   countDownShow.value = true;
   const interval = setInterval(() => {

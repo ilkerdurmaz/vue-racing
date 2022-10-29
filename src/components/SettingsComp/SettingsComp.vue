@@ -2,7 +2,7 @@
 import LaneSettings from "./LaneSettingsComp.vue";
 const props = defineProps(["lanes"]);
 const emit = defineEmits(["update:lanes"]);
-
+/* it updates given props with updated values and emits */
 function settingsChangedHandler(val, index) {
   const updatedSettings = [...props.lanes];
   updatedSettings[index] = val;
