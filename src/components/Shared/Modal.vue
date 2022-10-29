@@ -35,10 +35,10 @@ const emit = defineEmits(["modalClose", "acceptClick"]);
         v-show="modalActive"
       >
         <Transition name="modal-inner">
-          <div class="modal" v-if="modalActive">
+          <div class="modal" v-if="modalActive" role="dialog">
             <div class="modal-header">
               <h1 class="text-2xl">{{ title }}</h1>
-              <IconButton @click="emit('modalClose')"
+              <IconButton @click="emit('modalClose')" aria-label="close dialog"
                 ><i class="bi bi-x-lg"></i
               ></IconButton>
             </div>
@@ -49,6 +49,7 @@ const emit = defineEmits(["modalClose", "acceptClick"]);
               <GradientButton
                 v-if="showAcceptButton"
                 @click="emit('acceptClick')"
+                aria-label="accept dialog"
                 :btn-text="acceptButtonText"
               ></GradientButton>
             </div>

@@ -6,7 +6,7 @@ const emit = defineEmits(["settingsBtnClick"]);
 <template>
   <footer class="footer-bar">
     <div class="footer-container">
-      <span class="footer-text">Built By İlker Durmaz. </span>
+      <p class="footer-text">Built By İlker Durmaz.</p>
       <nav>
         <ul class="footer-navlist">
           <li>
@@ -22,7 +22,10 @@ const emit = defineEmits(["settingsBtnClick"]);
             ></a>
           </li>
           <li>
-            <IconButton @click="emit('settingsBtnClick')">
+            <IconButton
+              @click="emit('settingsBtnClick')"
+              aria-label="settings button"
+            >
               <i class="bi bi-gear-fill"></i>
             </IconButton>
           </li>

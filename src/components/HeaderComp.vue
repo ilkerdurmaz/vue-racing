@@ -33,12 +33,17 @@ const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
   <header class="header-bar">
     <div class="header-container">
       <span class="title-group">
-        <Image :img-src="props.titleIcon" class="object-fit w-8"></Image>
+        <Image
+          :img-src="props.titleIcon"
+          class="object-fit w-8"
+          alt="site logo"
+        ></Image>
         <h1 class="text-xl sm:text-2xl">{{ props.title }}</h1>
       </span>
       <div class="btn-group">
         <IconButton
           @click="emit('darkModeClick')"
+          aria-label="dark mode switch"
           class="bg-clip-text bg-gradient-to-br from-pink-500 to-orange-400"
         >
           <i
@@ -51,6 +56,7 @@ const emit = defineEmits(["darkModeClick", "mainBtnClick"]);
           ></i>
         </IconButton>
         <GradientButton
+          aria-label="start race"
           :btnDisable="props.mainBtnDisable"
           :btnText="props.mainBtnText"
           @click="emit('mainBtnClick')"

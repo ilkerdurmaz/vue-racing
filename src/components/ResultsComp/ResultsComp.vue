@@ -17,33 +17,33 @@ const emit = defineEmits(["closeBtnClick"]);
 
 <template>
   <Transition name="backdrop-transition">
-    <div v-if="props.resultsActive" class="results">
+    <div v-if="props.resultsActive" class="results" aria-label="race results">
       <div class="results-header">
         <span class="w-8"></span>
-        <span class="text-2xl">Race Results</span>
+        <h2 class="text-2xl">Race Results</h2>
         <IconButton @click="emit('closeBtnClick')"
           ><i class="bi bi-x-lg"></i
         ></IconButton>
       </div>
       <div class="podium">
         <div class="podium-bar">
-          <div class="bar-text">
+          <p class="bar-text">
             {{ props.results[1].racerName }}
-          </div>
+          </p>
           <div class="silver font-serif">2</div>
         </div>
         <div class="podium-bar">
-          <div class="bar-text">{{ props.results[0].racerName }}</div>
+          <p class="bar-text">{{ props.results[0].racerName }}</p>
           <div class="gold font-serif">1</div>
         </div>
         <div class="podium-bar">
-          <div class="bar-text">{{ props.results[2].racerName }}</div>
+          <p class="bar-text">{{ props.results[2].racerName }}</p>
           <div class="bronze font-serif">3</div>
         </div>
       </div>
-      <span class="text-xs text-neutral-300 py-1"
-        >You can restart the race by pressing "Start Race" button.
-      </span>
+      <p class="text-xs text-neutral-300 py-1">
+        You can restart the race by pressing "Start Race" button.
+      </p>
     </div>
   </Transition>
 </template>

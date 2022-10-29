@@ -25,7 +25,7 @@ const props = defineProps({
 
 <template>
   <Transition name="backdrop-transition">
-    <div v-if="props.pingTextActive" class="backdrop">
+    <div v-if="props.pingTextActive" class="backdrop" role="timer">
       <div
         :class="{ 'animate-countdown': props.animationActive }"
         :style="{ fontSize: `${props.size}px`, color: props.color }"
